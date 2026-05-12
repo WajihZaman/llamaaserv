@@ -1,0 +1,3 @@
+* text=auto
+bin/llama-b8994-bin-ubuntu-x64.tar.gz binary
+*.gguf binary
