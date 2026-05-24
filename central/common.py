@@ -17,9 +17,7 @@ DB_PATH = (
 connectionstring = os.getenv("SQL_DB")
 url = os.getenv("url", "http://localhost:5001/v1/chat/completions")
 
-# connectionstring="mysql+pymysql://FastAPIServiceUser:j#8G7135qr*7a246@edx226wappdbd01.mysql.database.azure.com:3306/efsaiapi"
 # url="http://localhost:5001/v1/chat/completions"
-# SQL_DB="mysql+pymysql://FastAPIServiceUser:j#8G7135qr*7a246@edx226wappdbd01.mysql.database.azure.com:3306/efsaiapi"
 
 
 chromaclient = chromadb.PersistentClient(
