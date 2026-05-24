@@ -1,4 +1,4 @@
-# import json
+
 from central.prompts import system_prompt
 from central.schema import UserQuery
 from central.common import url
@@ -28,7 +28,7 @@ async def respond_to_chat(objMsg: UserQuery):
 
     from central.common import collection_name
 
-    # context data has the relevant docs, from knowledge base, to answer user queries
+    
     context_data = await search_similar_chunks(msg, collection_name)  # type: ignore
 
     rows = await run_in_threadpool(
@@ -111,9 +111,7 @@ async def respond_to_chat(objMsg: UserQuery):
         ],
     )
 
-    # url = "http://localhost:5001/v1/chat/completions" # portability, openai format and for best for chat apis
-
-    # On old CPUs, keep temperature low for more stable results
+    
     payload = {
         "model": "cam-assistant",
         "messages": messages,
@@ -133,7 +131,7 @@ async def respond_to_chat(objMsg: UserQuery):
         ],
     )
 
-    # print(f"\n\n ----------------------- rag payload ----------------------- \n: {json.dumps(payload, indent=2)}")
+    
 
     full_response = ""
 
@@ -163,7 +161,7 @@ async def respond_to_chat(objMsg: UserQuery):
             ],
         )
 
-        # print(f"\n\n ----------------------- rag response ----------------------- \n: {response}")
+        
 
         if response.status_code != 200:
             # This triggers your exception block for logging
@@ -191,10 +189,7 @@ async def respond_to_chat(objMsg: UserQuery):
             ],
         )
 
-        # print(f"\n\n ----------------------- rag result ----------------------- \n: {result}")
-
-        # Non-streaming llama-server usually puts the text in 'content'
-        # or 'choices[0].message.content' depending on the endpoint version
+        
 
         full_response = (
             result.get("choices", [{}])[0].get("message", {}).get("content", "")
@@ -210,7 +205,6 @@ async def respond_to_chat(objMsg: UserQuery):
                 "in respond_to_chat; full response ready.",
             ],
         )
-        # print(f"\n\n ----------------------- rag full_response ----------------------- \n: {full_response}")
 
         if full_response:
             rows = await run_in_threadpool(
@@ -278,7 +272,7 @@ async def search_similar_chunks(query: str, collection_name: str, k: int = 3):
         ],
     )
 
-    # print(f"\n\n ----------------------- chroma results ----------------------- :\n {results}")
+    
 
     documents = results.get("documents", [[]])  # Get the text list
 
@@ -293,14 +287,14 @@ async def search_similar_chunks(query: str, collection_name: str, k: int = 3):
         ],
     )
 
-    # print(f"\n\n ----------------------- chroma results documents ----------------------- :\n {documents}")
+    
 
     if not documents or not documents[0]:
         context_text = ""
     else:
         context_text = "\n\n".join(documents[0])
 
-    # context_text = "\n\n".join(documents[0])
+    
 
     rows = await run_in_threadpool(
         execute_stored_procedure,
@@ -313,8 +307,8 @@ async def search_similar_chunks(query: str, collection_name: str, k: int = 3):
         ],
     )
 
-    # print(f"\n\n ----------------------- chroma results context_text ----------------------- :\n {context_text}")
+    
 
     return context_text
 
-    # metadatas = results.get("metadatas", [[]])[0]  # Get the metadata list
+    
