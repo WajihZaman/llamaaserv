@@ -93,7 +93,6 @@ anyio==4.13.0 \
     --hash=sha256:08b310f9e24a9594186fd75b4f73f4a4152069e3853f1ed8bfbf58369f4ad708 \
     --hash=sha256:334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc
     # via
-    #   groq
     #   httpx
     #   starlette
     #   watchfiles
@@ -118,13 +117,13 @@ bcrypt==4.0.1 \
     --hash=sha256:e9a51bbfe7e9802b5f3508687758b564069ba937748ad7b9e890086290d2f79e \
     --hash=sha256:fbdaec13c5105f0c4e5c52614d04f0bca5f5af007910daa8b6b12095edaa67b3
     # via
-    #   cam-api-0-1
+    #   cam-0-1
     #   chromadb
     #   passlib
 beautifulsoup4==4.14.3 \
     --hash=sha256:0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb \
     --hash=sha256:6292b1c5186d356bba669ef9f7f051757099565ad9ada5dd630bd9de5fa7fb86
-    # via cam-api-0-1
+    # via cam-0-1
 build==1.4.3 \
     --hash=sha256:1bc22b19b383303de8f2c8554c9a32894a58d3f185fe3756b0b20d255bee9a38 \
     --hash=sha256:5aa4231ae0e807efdf1fd0623e07366eca2ab215921345a2e38acdd5d0fa0a74
@@ -261,7 +260,7 @@ chromadb==1.5.8 \
     --hash=sha256:9494f0cf734dcfd2976890f9e3a446fdd5ca565375ffebe0de388ce994ac1f5e \
     --hash=sha256:9f5dfaea989128793c4e1928de6a150d70ae55e44403d85448be94ff32f2c962 \
     --hash=sha256:b7490b26843c9851e1e9bb0333a1d584e5e77b5a49a78713424600af9b3a28e6
-    # via cam-api-0-1
+    # via cam-0-1
 click==8.3.2 \
     --hash=sha256:14162b8b3b3550a7d479eafa77dfd3c38d9dc8951f6f69c78913a8f9a7540fd5 \
     --hash=sha256:1924d2c27c5653561cd2cae4548d1406039cb79b858b747cfea24924bbc1616d
@@ -320,15 +319,11 @@ cryptography==47.0.0 \
     --hash=sha256:f5c15764f261394b22aef6b00252f5195f46f2ca300bec57149474e2538b31f8 \
     --hash=sha256:f5c3296dab66202f1b18a91fa266be93d6aa0c2806ea3d67762c69f60adc71aa \
     --hash=sha256:f9a034b642b960767fb343766ae5ba6ad653f2e890ddd82955aef288ffea8736
-    # via cam-api-0-1
+    # via cam-0-1
 dataclasses-json==0.6.7 \
     --hash=sha256:0dbf33f26c8d5305befd61b39d2b3414e8a407bedc2834dea9b8d642666fb40a \
     --hash=sha256:b6b3e528266ea45b9535223bc53ca645f5208833c29229e847b3f26a1cc55fc0
     # via langchain-community
-distro==1.9.0 \
-    --hash=sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed \
-    --hash=sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2
-    # via groq
 dnspython==2.8.0 \
     --hash=sha256:01d9bbc4a2d76bf0db7c1f729812ded6d912bd318d3b1cf81d30c0f845dbf3af \
     --hash=sha256:181d3c6996452cb1189c4046c61599b84a5a86e099562ffde77d26984ff26d0f
@@ -344,7 +339,7 @@ email-validator==2.3.0 \
 fastapi==0.136.0 \
     --hash=sha256:8793d44ec7378e2be07f8a013cf7f7aa47d6327d0dfe9804862688ec4541a6b4 \
     --hash=sha256:cf08e067cc66e106e102d9ba659463abfac245200752f8a5b7b1e813de4ff73e
-    # via cam-api-0-1
+    # via cam-0-1
 filelock==3.28.0 \
     --hash=sha256:4ed1010aae813c4ee8d9c660e4792475ee60c4a0ba76073ceaf862bd317e3ca6 \
     --hash=sha256:de9af6712788e7171df1b28b15eba2446c69721433fa427a9bee07b17820a9db
@@ -480,10 +475,6 @@ greenlet==3.4.0 ; platform_machine == 'AMD64' or platform_machine == 'WIN32' or 
     --hash=sha256:f8296d4e2b92af34ebde81085a01690f26a51eb9ac09a0fcadb331eb36dbc802 \
     --hash=sha256:f82cb6cddc27dd81c96b1506f4aa7def15070c3b2a67d4e46fd19016aacce6cf
     # via sqlalchemy
-groq==0.37.1 \
-    --hash=sha256:7353d6dfb60834fd7aacbb86af106e2dc2aeaff6d0edd65fb2fd0f16bd39314c \
-    --hash=sha256:b49f8c8898c55eaec9f71f1342f3fcacc9560d67a08ce5f35fbfb84e8dacd3da
-    # via langchain-groq
 grpcio==1.80.0 \
     --hash=sha256:0cb517eb1d0d0aaf1d87af7cc5b801d686557c1d88b2619f5e31fab3c2315921 \
     --hash=sha256:256507e2f524092f1473071a05e65a5b10d84b82e3ff24c5b571513cfaa61e2f \
@@ -584,8 +575,8 @@ httpx==0.28.1 \
     --hash=sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc \
     --hash=sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad
     # via
+    #   cam-0-1
     #   chromadb
-    #   groq
     #   huggingface-hub
     #   langsmith
 httpx-sse==0.4.3 \
@@ -640,19 +631,14 @@ langchain-classic==1.0.4 \
 langchain-community==0.4.1 \
     --hash=sha256:2135abb2c7748a35c84613108f7ebf30f8505b18c3c18305ffaecfc7651f6c6a \
     --hash=sha256:f3b211832728ee89f169ddce8579b80a085222ddb4f4ed445a46e977d17b1e85
-    # via cam-api-0-1
+    # via cam-0-1
 langchain-core==1.3.0 \
     --hash=sha256:14a39f528bf459aa3aa40d0a7f7f1bae7520d435ef991ae14a4ceb74d8c49046 \
     --hash=sha256:baf16ee028475df177b9ab8869a751c79406d64a6f12125b93802991b566cced
     # via
     #   langchain-classic
     #   langchain-community
-    #   langchain-groq
     #   langchain-text-splitters
-langchain-groq==1.1.2 \
-    --hash=sha256:1f59f12233e8e6280c968bca6c40a7e5434e971e9a5387ad23c4c64ec776de10 \
-    --hash=sha256:67d1d752fb6590be517735947ec49b4ab9ed9191c7cca79f105d227775c67ae5
-    # via cam-api-0-1
 langchain-text-splitters==1.1.2 \
     --hash=sha256:782a723db0a4746ac91e251c7c1d57fd23636e4f38ed733074e28d7a86f41627 \
     --hash=sha256:a2de0d799ff31886429fd6e2e0032df275b60ec817c19059a7b46181cc1c2f10
@@ -667,7 +653,7 @@ langsmith==0.7.32 \
 markdown==3.10.2 \
     --hash=sha256:994d51325d25ad8aa7ce4ebaec003febcce822c3f8c911e3b17c52f7f589f950 \
     --hash=sha256:e91464b71ae3ee7afd3017d9f358ef0baf158fd9a298db92f1d4761133824c36
-    # via cam-api-0-1
+    # via cam-0-1
 markdown-it-py==4.0.0 \
     --hash=sha256:87327c59b172c5011896038353a81343b6754500a08cd7a4973bb48c6d578147 \
     --hash=sha256:cb0a2b4aa34f932c007117b194e945bd74e0ec24133ceb5bac59009cda1cb9f3
@@ -1044,7 +1030,7 @@ packaging==26.1 \
 passlib==1.7.4 \
     --hash=sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1 \
     --hash=sha256:defd50f72b65c5402ab2c573830a6978e5f202ad0d984793c8dde2c4152ebe04
-    # via cam-api-0-1
+    # via cam-0-1
 propcache==0.4.1 \
     --hash=sha256:0013cb6f8dde4b2a2f66903b8ba740bdfe378c943c4377a200551ceb27f379e4 \
     --hash=sha256:005f08e6a0529984491e37d8dbc3dd86f84bd78a8ceb5fa9a021f4c48d4984be \
@@ -1260,10 +1246,9 @@ pydantic==2.13.2 \
     --hash=sha256:a525087f4c03d7e7456a3de89b64cd693d2229933bb1068b9af6befd5563694e \
     --hash=sha256:b418196607e61081c3226dcd4f0672f2a194828abb9109e9cfb84026564df2d1
     # via
-    #   cam-api-0-1
+    #   cam-0-1
     #   chromadb
     #   fastapi
-    #   groq
     #   langchain-classic
     #   langchain-core
     #   langsmith
@@ -1339,17 +1324,28 @@ pydantic-settings==2.13.1 \
     --hash=sha256:b4c11847b15237fb0171e1462bf540e294affb9b86db4d9aa5c01730bdbe4025 \
     --hash=sha256:d56fd801823dbeae7f0975e1f8c8e25c258eb75d278ea7abb5d9cebb01b56237
     # via
-    #   cam-api-0-1
+    #   cam-0-1
     #   chromadb
     #   langchain-community
 pygments==2.20.0 \
     --hash=sha256:6757cd03768053ff99f3039c1a36d6c0aa0b263438fcab17520b30a303a82b5f \
     --hash=sha256:81a9e26dd42fd28a23a2d169d86d7ac03b46e2f8b59ed4698fb4785f946d0176
     # via rich
+pymupdf==1.27.2.2 \
+    --hash=sha256:09bb53f9486ccb5297030cbc2dbdae845ba1c3c5126e96eb2d16c4f118de0b5b \
+    --hash=sha256:0b8e924433b7e0bd46be820899300259235997d5a747638471fb2762baa8ee30 \
+    --hash=sha256:6cebfbbdfd219ebdebf4d8e3914624b2e3d3a844c43f4f76935822dd9b13cc12 \
+    --hash=sha256:800f43e60a6f01f644343c2213b8613db02eaf4f4ba235b417b3351fa99e01c0 \
+    --hash=sha256:892698c9768457eb0991c102c96a856c0a7062539371df5e6bee0816f3ef498e \
+    --hash=sha256:8b4bbfa6ef347fade678771a93f6364971c51a2cdc44cd2400dc4eeed1ddb4e6 \
+    --hash=sha256:8e2e4299ef1ac0c9dff9be096cbd22783699673abecfa7c3f73173ae06421d73 \
+    --hash=sha256:c5e3d54922db1c7da844f1208ac1db05704770988752311f81dd36694ae0a07b \
+    --hash=sha256:ea8fdc3ab6671ca98f629d5ec3032d662c8cf1796b146996b7ad306ac7ed3335
+    # via cam-0-1
 pymysql==1.1.2 \
     --hash=sha256:4961d3e165614ae65014e361811a724e2044ad3ea3739de9903ae7c21f539f03 \
     --hash=sha256:e6b1d89711dd51f8f74b1631fe08f039e7d76cf67a42a323d3178f0f25762ed9
-    # via cam-api-0-1
+    # via cam-0-1
 pypika==0.51.1 \
     --hash=sha256:77985b4d7ce71b9905255bf12468cf598349e98837c037541cfc240e528aec46 \
     --hash=sha256:c30c7c1048fbf056fd3920c5a2b88b0c29dd190a9b2bee971fd17e4abe4d0ebe
@@ -1366,7 +1362,7 @@ python-dotenv==1.2.2 \
     --hash=sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a \
     --hash=sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3
     # via
-    #   cam-api-0-1
+    #   cam-0-1
     #   pydantic-settings
     #   uvicorn
 pyyaml==6.0.3 \
@@ -1535,10 +1531,6 @@ six==1.17.0 \
     # via
     #   kubernetes
     #   python-dateutil
-sniffio==1.3.1 \
-    --hash=sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2 \
-    --hash=sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc
-    # via groq
 soupsieve==2.8.3 \
     --hash=sha256:3267f1eeea4251fb42728b6dfb746edc9acaffc4a45b27e19450b676586e8349 \
     --hash=sha256:ed64f2ba4eebeab06cc4962affce381647455978ffc1e36bb79a545b91f45a95
@@ -1580,7 +1572,7 @@ sqlalchemy==2.0.49 \
     --hash=sha256:ec44cfa7ef1a728e88ad41674de50f6db8cfdb3e2af84af86e0041aaf02d43d0 \
     --hash=sha256:fb37f15714ec2652d574f021d479e78cd4eb9d04396dca36568fdfffb3487982
     # via
-    #   cam-api-0-1
+    #   cam-0-1
     #   langchain-classic
     #   langchain-community
 starlette==1.0.0 \
@@ -1637,7 +1629,6 @@ typing-extensions==4.15.0 \
     #   beautifulsoup4
     #   chromadb
     #   fastapi
-    #   groq
     #   grpcio
     #   huggingface-hub
     #   langchain-core
@@ -1692,7 +1683,7 @@ uvicorn==0.44.0 \
     --hash=sha256:6c942071b68f07e178264b9152f1f16dfac5da85880c4ce06366a96d70d4f31e \
     --hash=sha256:ce937c99a2cc70279556967274414c087888e8cec9f9c94644dfca11bd3ced89
     # via
-    #   cam-api-0-1
+    #   cam-0-1
     #   chromadb
 uvloop==0.22.1 ; platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32' \
     --hash=sha256:0530a5fbad9c9e4ee3f2b33b148c6a64d47bbad8000ea63704fa8260f4cf728e \
