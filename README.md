@@ -16,46 +16,66 @@ An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) sys
 
 The application leverages a lightweight Basic Authentication schema paired with a dedicated transactional tracking pipeline. To protect network overhead, a shared corporate credential grants access to the gateway, while a mandatory `Employee_ID` payload is injected into every request header to securely audit system usage, exception traces, and chat session histories inside an Azure MySQL instance.
 
-graph TB
-    %% Core Nodes Defining the Layers
-    User[👤 Client / UI Request Payload]
-    Auth[🔑 Basic Auth & Employee_ID Validation]
-    MySQL_Auth[(🗄️ Azure MySQL: Validate Credentials)]
-    FastAPI[⚡ FastAPI Gateway Router Core]
-    Chroma[(🗃️ Chroma Vector DB: Document Retrieval)]
-    Llama[🦙 Localized Llama-3.2 GGUF Engine]
-    MySQL_Log[(📊 Azure MySQL: Log Telemetry & Chat History)]
-    Output[📤 Encrypted JSON Response Stream]
+```mermaid
+---
+config:
+  layout: elk
+  look: classic
+  theme: default
+  flowchart:
+    nodeSpacing: 100
+    rankSpacing: 150
+    defaultRenderer: playgraph
+---
+graph TD
 
-    %% Grouping Components Visually to Prevent Crowding
-    subgraph Gateway & Verification Layer
-        User -->|1. Transmit Auth Headers| Auth
-        Auth -->|2. Check Static Credentials| MySQL_Auth
-        MySQL_Auth -->|3. Initialize Session Handshake| FastAPI
-    end
+    %% =========================================================
+    %% 1. PIPELINE NODE DEFINITIONS
+    %% =========================================================
+    User[👤 Client Payload <br> basic_auth + Employee_ID]
+    
+    FastAPI{⚡ FastAPI Gateway Router}
+    
+    MySQL_Auth[(🗄️ Azure MySQL <br> Validate Credentials)]
+    
+    Chroma[(🗃️ Chroma Vector DB <br> Semantic Context Retrieval)]
+    
+    Llama[🦙 Local Llama-3.2 GGUF <br> CPU Inference Engine]
+    
+    MySQL_Log[(📊 Azure MySQL <br> Telemetry & Chat Logs)]
+    
+    Output[📤 Encrypted JSON Response]
 
-    subgraph Knowledge Retrieval Layer
-        FastAPI -->|4. Request Semantic Context chunks| Chroma
-        Chroma -->|5. Return Relevant KB Text Blocks| FastAPI
-    end
+    %% =========================================================
+    %% 2. STRICT LINEAR TRAFFIC LINKAGE (Eliminates Overlap)
+    %% =========================================================
+    User         --> |1. Transmit Payload Headers| FastAPI
+    
+    FastAPI      --> |2. Query Global DB Records|  MySQL_Auth
+    
+    MySQL_Auth   --> |3. Return Session Auth OK|   FastAPI
+    
+    FastAPI      --> |4. Execute Context Search|   Chroma
+    
+    Chroma       --> |5. Inject Retrieved KB Data| FastAPI
+    
+    FastAPI      --> |6. Run Multi-Threaded Prompt| Llama
+    
+    Llama        --> |7. Latency Loop: 12-25 Seconds| FastAPI
+    
+    FastAPI      --> |8. Async Append Chat History| MySQL_Log
+    
+    MySQL_Log    --> |9. Construct Generation Object| Output
+    
+    Output       --> |10. Render App UI View|      User
 
-    subgraph CPU Inference Processing Layer
-        FastAPI -->|6. Inject Context-Augmented Prompt| Llama
-        Llama -->|7. Multi-threaded CPU Inference Loop: 12-25s| FastAPI
-    end
-
-    subgraph Transactional Persistence Layer
-        FastAPI -->|8. Append Async Chat History String| MySQL_Log
-        MySQL_Log -->|9. Route Structured Generation Payload| Output
-        Output -->|10. Render Interface Response| User
-    end
-
-    %% Apply visual polish to key data pathways
+    %% =========================================================
+    %% 3. THEME ACCENTS FOR PROFESSIONAL LOOK
+    %% =========================================================
     style FastAPI fill:#f9f,stroke:#333,stroke-width:2px
     style Llama fill:#bbf,stroke:#333,stroke-width:1px
     style Chroma fill:#bfb,stroke:#333,stroke-width:1px
-    style MySQL_Auth fill:#ffb,stroke:#333,stroke-width:1px
-    style MySQL_Log fill:#ffb,stroke:#333,stroke-width:1px
+```
 
 ---
 
