@@ -17,40 +17,62 @@ An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) sys
 The application leverages a lightweight Basic Authentication schema paired with a dedicated transactional tracking pipeline. To protect network overhead, a shared corporate credential grants access to the gateway, while a mandatory `Employee_ID` payload is injected into every request header to securely audit system usage, exception traces, and chat session histories inside an Azure MySQL instance.
 
 ```mermaid
-graph TD
+graph TB
 
     %% =========================================================
-    %% 1. PIPELINE NODE DEFINITIONS
+    %% 1. PIPELINE NODE DEFINITIONS (High Contrast Styling)
     %% =========================================================
-    User[Client Payload <br> basic_auth + Employee_ID]
-    FastAPI{⚡ FastAPI Gateway Router}
-    MySQL_Auth[(Azure MySQL <br> Validate Credentials)]
-    Chroma[(Chroma Vector DB <br> Semantic Context Retrieval)]
+    User[👤 Client UI Request <br> basic_auth + Employee_ID]
+    
+    FastAPI_Auth{⚡ FastAPI Gateway: Authenticating}
+    MySQL_Auth[(🗄️ Azure MySQL <br> Verify Static Credentials)]
+    
+    FastAPI_RAG{⚡ FastAPI Gateway: Context Retrieval}
+    Chroma[(🗃️ Chroma Vector DB <br> Semantic KB Search)]
+    
+    FastAPI_LLM{⚡ FastAPI Gateway: Model Execution}
     Llama[🦙 Local Llama-3.2 GGUF <br> CPU Inference Engine]
-    MySQL_Log[(Azure MySQL <br> Telemetry & Chat Logs)]
+    
+    FastAPI_Log{⚡ FastAPI Gateway: Telemetry Ingestion}
+    MySQL_Log[(📊 Azure MySQL <br> Log Chat & Exception History)]
+    
     Output[📤 Encrypted JSON Response]
 
     %% =========================================================
-    %% 2. STRICT LINEAR TRAFFIC LINKAGE (Error-Free Syntax)
+    %% 2. LINEAR STEP-BY-STEP DATAFLOW (Eliminates Text Crowding)
     %% =========================================================
-    User-->|1. Transmit Payload Headers|FastAPI
-    FastAPI-->|2. Query Global DB Records|MySQL_Auth
-    MySQL_Auth-->|3. Return Session Auth OK|FastAPI
-    FastAPI-->|4. Execute Context Search|Chroma
-    Chroma-->|5. Inject Retrieved KB Data|FastAPI
-    FastAPI-->|6. Run Multi-Threaded Prompt|Llama
-    Llama-->|7. Latency Loop: 12-25 Seconds|FastAPI
-    FastAPI-->|8. Async Append Chat History|MySQL_Log
-    MySQL_Log-->|9. Construct Generation Object|Output
-    Output-->|10. Render App UI View|User
+    User --> |1. Transmit Payload Headers| FastAPI_Auth
+    
+    FastAPI_Auth --> |2. Check DB Records| MySQL_Auth
+    MySQL_Auth --> |3. Session Authorized OK| FastAPI_RAG
+    
+    FastAPI_RAG --> |4. Execute Vector Search| Chroma
+    Chroma --> |5. Return Context Chunks| FastAPI_LLM
+    
+    FastAPI_LLM --> |6. Inject Context-Informed Prompt| Llama
+    Llama --> |7. Latency Loop: 12-25 Seconds| FastAPI_Log
+    
+    FastAPI_Log --> |8. Async Append User History| MySQL_Log
+    MySQL_Log --> |9. Generate Final Response Object| Output
+    
+    Output --> |10. Render Completed Stream View| User
 
     %% =========================================================
-    %% 3. THEME ACCENTS FOR PROFESSIONAL LOOK
+    %% 3. REFINED GRAPH ACCENTS (Dark-Mode Harmony)
     %% =========================================================
-    style FastAPI fill:#f9f,stroke:#333,stroke-width:2px
-    style Llama fill:#bbf,stroke:#333,stroke-width:1px
-    style Chroma fill:#bfb,stroke:#333,stroke-width:1px
+    classDef default fill:#1a1d24,stroke:#4a5568,stroke-width:1px,color:#ffffff;
+    
+    style FastAPI_Auth fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#ffffff
+    style FastAPI_RAG fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#ffffff
+    style FastAPI_LLM fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#ffffff
+    style FastAPI_Log fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#ffffff
+    
+    style Llama fill:#062040,stroke:#3b82f6,stroke-width:2px,color:#ffffff
+    style Chroma fill:#062f21,stroke:#10b981,stroke-width:2px,color:#ffffff
+    style MySQL_Auth fill:#272510,stroke:#eab308,stroke-width:2px,color:#ffffff
+    style MySQL_Log fill:#272510,stroke:#eab308,stroke-width:2px,color:#ffffff
 ```
+
 
 ---
 
