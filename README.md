@@ -16,26 +16,46 @@ An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) sys
 
 The application leverages a lightweight Basic Authentication schema paired with a dedicated transactional tracking pipeline. To protect network overhead, a shared corporate credential grants access to the gateway, while a mandatory `Employee_ID` payload is injected into every request header to securely audit system usage, exception traces, and chat session histories inside an Azure MySQL instance.
 
-```mermaid
-graph TD
-    User[Client / UI Request Payload] -->|1. Basic Auth + Employee_ID Header| API(FastAPI Gateway Router)
-    
-    %% Authentication & Auditing
-    API -->|2. Validate Global Credentials| DB[(Azure MySQL Enterprise Database)]
-    API -->|3. Log Transactional Telemetry against Employee_ID| DB
-    
-    %% RAG Pipeline Execution
-    API -->|4. Execute Semantic Similarity Vector Query| Vector[(Chroma Vector DB)]
-    Vector -->|5. Return Central Document Context Chunks| API
-    
-    %% Compute Inference
-    API -->|6. Inject Ingested Context Chunks| Llama(Localized Llama-3.2 GGUF Server)
-    Llama -->|7. CPU-Optimized Inference Loop: 12-25s| API
-    
-    %% Session Persistence & Output
-    API -->|8. Append Async Chat History String| DB
-    API -->|9. Stream Encrypted JSON Response Stream| User
-```
+graph TB
+    %% Core Nodes Defining the Layers
+    User[👤 Client / UI Request Payload]
+    Auth[🔑 Basic Auth & Employee_ID Validation]
+    MySQL_Auth[(🗄️ Azure MySQL: Validate Credentials)]
+    FastAPI[⚡ FastAPI Gateway Router Core]
+    Chroma[(🗃️ Chroma Vector DB: Document Retrieval)]
+    Llama[🦙 Localized Llama-3.2 GGUF Engine]
+    MySQL_Log[(📊 Azure MySQL: Log Telemetry & Chat History)]
+    Output[📤 Encrypted JSON Response Stream]
+
+    %% Grouping Components Visually to Prevent Crowding
+    subgraph Gateway & Verification Layer
+        User -->|1. Transmit Auth Headers| Auth
+        Auth -->|2. Check Static Credentials| MySQL_Auth
+        MySQL_Auth -->|3. Initialize Session Handshake| FastAPI
+    end
+
+    subgraph Knowledge Retrieval Layer
+        FastAPI -->|4. Request Semantic Context chunks| Chroma
+        Chroma -->|5. Return Relevant KB Text Blocks| FastAPI
+    end
+
+    subgraph CPU Inference Processing Layer
+        FastAPI -->|6. Inject Context-Augmented Prompt| Llama
+        Llama -->|7. Multi-threaded CPU Inference Loop: 12-25s| FastAPI
+    end
+
+    subgraph Transactional Persistence Layer
+        FastAPI -->|8. Append Async Chat History String| MySQL_Log
+        MySQL_Log -->|9. Route Structured Generation Payload| Output
+        Output -->|10. Render Interface Response| User
+    end
+
+    %% Apply visual polish to key data pathways
+    style FastAPI fill:#f9f,stroke:#333,stroke-width:2px
+    style Llama fill:#bbf,stroke:#333,stroke-width:1px
+    style Chroma fill:#bfb,stroke:#333,stroke-width:1px
+    style MySQL_Auth fill:#ffb,stroke:#333,stroke-width:1px
+    style MySQL_Log fill:#ffb,stroke:#333,stroke-width:1px
 
 ---
 
