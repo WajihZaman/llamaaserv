@@ -89,7 +89,7 @@ graph TB
 ├── Model                  # Local AI GGUF Model (Llama 3.2) invoked by llama server  
 ├── bin/                   # Production Ubuntu binary (Unzipped automatically via Dockerfile)
 ├── bin2/                  # Local Windows binary (Leveraged for isolated desktop testing)
-└── central/               # Core business processing microservices
+└── central/               # Application core configurations, schemas, and database mappings
     ├── database/vectordb  # PRE-COMPUTED DATA VECTORS (Committed manually via Git)
     ├── db.py              # Central MySql Database Models in SQLAlchemy
     ├── prompts.py         # System prompt for the Local AI model
@@ -106,7 +106,7 @@ graph TB
 
 #### 1. Clone and Navigate to Infrastructure Workspace
 ```bash
-git clone https://github.com
+git clone https://github.com/WajihZaman/local-ai-rag-assistant
 cd local-ai-rag-assistant
 ```
 
