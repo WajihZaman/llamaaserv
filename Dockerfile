@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y libgomp1 \
 
 COPY . /app
 
+# Extract tar.gz and move ALL contents to bin/ (llama-server needs the .so files)
 RUN tar -xzf /app/bin/llama-b8994-bin-ubuntu-x64.tar.gz -C /app/bin/ \
     && mv /app/bin/llama-b8994/* /app/bin/ \
     && rm -rf /app/bin/llama-b8994 \
