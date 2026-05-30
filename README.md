@@ -81,21 +81,22 @@ graph TB
 
 ```text
 ├── .env.template          # Global environment variable blueprint
-├── Dockerfile             # Global environment variable blueprint
+├── Dockerfile             # Code to Deploy the program to Azure Server using Ubuntu Latest
 ├── requirements.txt       # Unified system Python dependencies
 ├── main.py                # Primary FastAPI application entry endpoint (Routing Layer)
 ├── config.py              # Configuration manager and database connections
 ├── exceptions.py          # Unified system exception handlers and MySQL logging
-├── bin                    # Unified system exception handlers and MySQL logging
-├── bin2                   # Unified system exception handlers and MySQL logging
+├── Model                  # Local AI GGUF Model (Llama 3.2) 
+├── bin/                   # Production Ubuntu binary (Unzipped automatically via Dockerfile)
+├── bin2/                  # Local Windows binary (Leveraged for isolated desktop testing)
 └── central/               # Core business processing microservices
-    ├── database/vectordb  # Basic Authentication parsing & Employee_ID verification
-    ├── db.py              # Central ChromaDB retrieval, indexing, and embedding loops
-    ├── prompts.py         # Central ChromaDB retrieval, indexing, and embedding loops
-    └── schema.py          # Quantized Llama 3.2 token parsing streaming logic
+    ├── database/vectordb  # PRE-COMPUTED DATA VECTORS (Committed manually via Git)
+    ├── db.py              # Central MySql Database Models in SQLAlchemy
+    ├── prompts.py         # System prompt for the Local AI model
+    └── schema.py          # Pydantic Model for User Queries
 └── services/              # Core business processing microservices
     ├── dbops.py           # Basic Authentication parsing & Employee_ID verification
-    ├── rag.py             # Central ChromaDB retrieval, indexing, and embedding loops
+    ├── rag.py             # Central ChromaDB retrieval, indexing, embedding loops, and response to user queries.
     └── security.py        # Quantized Llama 3.2 token parsing streaming logic
 ```
 
