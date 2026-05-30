@@ -1,10 +1,10 @@
-# 🤖 Enterprise Local AI RAG Assistant for Corporate Governance
+# Enterprise Local AI RAG Assistant for Corporate Governance
 
 An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) system engineered to handle corporate reporting workflows, data privacy compliance, and organizational guidance. Designed and fully deployed on traditional, CPU-only cloud infrastructure, this architecture serves local quantized LLMs natively to achieve total compliance with enterprise data privacy mandates, completely eliminating commercial vendor subscription paths (saving \$20k–\$80k/year).
 
 ---
 
-### 📐 Architectural Scope & Performance Metrics
+### Architectural Scope & Performance Metrics
 * **Role:** Backend AI Developer & Knowledge Engineer
 * **Target Infrastructure:** Traditional Azure Server (8 vCPUs, 8 GiB RAM, Zero-GPU Compute Footprint)
 * **Ingestion Strategy:** Offline Decoupled Embedding Processing (Zero Production Overhead)
@@ -12,7 +12,7 @@ An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) sys
 
 ---
 
-### 🗺️ System Data Flow & Telemetry Tracking Matrix
+### System Data Flow & Telemetry Tracking Matrix
 
 To maximize production compute cycles, data ingestion is completely decoupled from runtime execution. Document vector embeddings are generated offline on separate developer workstations and shipped directly as pre-compiled data weights. At runtime, the FastAPI app performs zero-overhead semantic searches and tracks usage by `Employee_ID` inside Azure MySQL.
 
@@ -69,7 +69,7 @@ graph TB
 
 ---
 
-### 🚀 Key Technical Indicators & Engineering Implementations
+### Key Technical Indicators & Engineering Implementations
 
 * **Offline Decoupled Embedding Ingestion:** Designed a zero-overhead production ingestion strategy. By generating document embeddings locally on isolated RDP/workstation hardware and committing the pre-compiled database files straight to the repository, the production Azure server is completely protected from resource-heavy token embedding calculation loops.
 * **Telemetry-Driven Audit Logging:** Engineered an isolated backend tracking mechanism that binds system computation usage, query history, and system exceptions directly to a unique `Employee_ID` string parameter while using a simplified basic authentication access gateway.
@@ -77,7 +77,7 @@ graph TB
 
 ---
 
-### 📂 Enterprise Repository File System Architecture
+### Enterprise Repository File System Architecture
 
 ```text
 ├── .env.template          # Global environment variable blueprint
@@ -102,7 +102,7 @@ graph TB
 
 ---
 
-### 🚀 Local Quick-Start Directory Execution
+### Local Quick-Start Directory Execution
 
 #### 1. Clone and Navigate to Infrastructure Workspace
 ```bash
