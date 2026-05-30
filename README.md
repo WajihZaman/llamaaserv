@@ -74,6 +74,8 @@ graph TB
 * **Offline Decoupled Embedding Ingestion:** Designed a zero-overhead production ingestion strategy. By generating document embeddings locally on isolated RDP/workstation hardware and committing the pre-compiled database files straight to the repository, the production Azure server is completely protected from resource-heavy token embedding calculation loops.
 * **Telemetry-Driven Audit Logging:** Engineered an isolated backend tracking mechanism that binds system computation usage, query history, and system exceptions directly to a unique `Employee_ID` string parameter while using a simplified basic authentication access gateway.
 * **Traditional Azure Hardware Optimization:** Specifically configured to maximize CPU multi-threading and vector mathematical calculations on baseline virtual hardware configurations without requiring expensive GPU compute instances.
+* **Hardened Instruction-Level Execution Tracing:** To guarantee absolute determinism and zero-fault data lineage under strict corporate compliance mandates, the backend implements a granular line-by-line audit framework. By piping static execution state markers directly into MySQL stored procedures after sequential code blocks using async thread pools (`run_in_threadpool`), the application isolates runtime anomalies and benchmarks code performance with microsecond precision directly on the Azure host machine.
+
 
 ---
 
