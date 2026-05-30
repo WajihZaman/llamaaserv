@@ -1,20 +1,86 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# 🤖 Enterprise Local AI RAG Assistant for HR Governance
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) system engineered for high-security HR behavioral reporting and organizational compliance. Designed and fully deployed on traditional, CPU-only cloud infrastructure, this architecture serves local quantized LLMs natively to achieve total compliance with enterprise data privacy mandates, completely eliminating commercial vendor subscription paths (saving \$20k–\$80k/year).
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+---
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+### 📐 Architectural Role & System Overview
+**Role:** AI Solution Architect & Knowledge Engineer  
+**Target Infrastructure:** Traditional Azure Server (8 vCPUs, 8 GiB RAM, Zero-GPU Compute Footprint)  
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+To meet strict data sovereignty requirements, this system splits incoming traffic into two isolated operational modes, ensuring absolute user confidentiality while providing rich domain-specific information retrieval for management.
+
+---
+
+### 🗺️ System Data Flow & Dual-User Path Matrix
+
+```mermaid
+graph TD
+    User[App Interface User / Client] -->|Route Selection| Split{Traffic Router}
+    
+    %% Path 1: Anonymous Reporting
+    Split -->|Path A: Employee Report| Anon[Anonymous Incident Reporting Layer]
+    Anon -->|Hash Metadata / Strip PII| SecureAPI(FastAPI Compliance Engine)
+    
+    %% Path 2: HR Interactive Guidance
+    Split -->|Path B: HR Executive| HRAuth[HR Staff Secure Login Layer]
+    HRAuth -->|Verify JWT Credentials| SecureAPI
+    
+    %% Core Ingestion & Retrieval Orchestration
+    SecureAPI -->|Audit Log Transaction| MySQL[(Azure MySQL Database)]
+    SecureAPI -->|Semantic Vector Context Retrieval| Chroma[(ChromaDB Vector Store)]
+    
+    %% Engine Compute Execution
+    Chroma -->|Inject Context Tokens| Llama(Localized Llama-3.2 GGUF Engine)
+    Llama -->|CPU-Optimized Inference Loop: 12-25s| SecureAPI
+    SecureAPI -->|Stream Encrypted JSON Stream| User
+```
+
+---
+
+### 🚀 Key Technical Indicators & Structural Capabilities
+
+* **Dual-Function Backend Separation:** 
+  * **Employee Vector Path:** Provides a highly secure, cryptographic endpoint for anonymous workplace incident filing, instantly stripping out any personally identifiable information (PII) data parameters.
+  * **HR Workflow Automation Path:** Provides structured, context-aware interactive guidance to help HR administrators navigate corporate handbooks, employment laws, and compliance procedures using semantic retrieval.
+* **Traditional Azure Hardware Scaling:** Specifically compiled to maximize CPU multi-threading and vector mathematical calculations on baseline virtual hardware without requiring expensive GPU compute instances.
+* **Stateful MySQL Enterprise Logs:** Utilizes an integrated database topology to log isolated system telemetry, process historical user chat states, and register application exception tracing streams safely.
+
+---
+
+### 📂 Enterprise Repository File System Architecture
+
+```text
+├── .env.template          # Global environment variable blueprint
+├── requirements.txt       # Unified system Python dependencies
+├── main.py                # Primary FastAPI application entry endpoint
+├── config.py              # Configuration manager and database connections
+├── exceptions.py          # Unified system exception handlers and logging
+├── services/              # Core business processing microservices
+│   ├── auth_service.py    # Multi-tenant user login and token generation
+│   ├── compliance_auth.py # Anonymization middleware (PII stripping filter)
+│   ├── rag_service.py     # ChromaDB retrieval, indexing, and embedding loop
+│   └── llama_service.py   # Quantized Llama 3.2 token parsing streaming logic
+└── bin/                   # Build scripts and runtime server automation
+```
+
+---
+
+### 🚀 Local Quick-Start Directory Execution
+
+#### 1. Clone and Navigate to Infrastructure Workspace
+```bash
+git clone https://github.com
+cd local-ai-rag-assistant
+```
+
+#### 2. Establish Environment File Configuration
+```bash
+cp .env.template .env
+```
+*Open `.env` and populate your secure Azure system credentials.*
+
+#### 3. Execute Environment Compilation via Docker Compose
+```bash
+docker-compose up --build -d
+```
