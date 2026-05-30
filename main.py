@@ -1,14 +1,12 @@
 from config import lifespan
 from services.rag import respond_to_chat
 from services.security import get_current_user
-from fastapi import Depends, FastAPI, Body, Request  # HTTPException
+from fastapi import Depends, FastAPI, Body, Request  
 from typing import Annotated, Optional
 from central.schema import UserQuery
 import uvicorn
 
-# from exceptions import record_exception
-
-# debug
+# Absolute Execution Tracing code
 from exceptions import execute_stored_procedure, error_details
 from fastapi.concurrency import run_in_threadpool
 
@@ -34,7 +32,7 @@ async def get_context(
             " inside get context api",
         ],
     ),
-):  # = Body(...)
+):  
 
     rowsd = await run_in_threadpool(
         execute_stored_procedure,
