@@ -17,57 +17,32 @@ An enterprise-grade, resource-optimized Retrieval-Augmented Generation (RAG) sys
 The application leverages a lightweight Basic Authentication schema paired with a dedicated transactional tracking pipeline. To protect network overhead, a shared corporate credential grants access to the gateway, while a mandatory `Employee_ID` payload is injected into every request header to securely audit system usage, exception traces, and chat session histories inside an Azure MySQL instance.
 
 ```mermaid
----
-config:
-  layout: elk
-  look: classic
-  theme: default
-  flowchart:
-    nodeSpacing: 100
-    rankSpacing: 150
-    defaultRenderer: playgraph
----
 graph TD
 
     %% =========================================================
     %% 1. PIPELINE NODE DEFINITIONS
     %% =========================================================
-    User[👤 Client Payload <br> basic_auth + Employee_ID]
-    
+    User[Client Payload <br> basic_auth + Employee_ID]
     FastAPI{⚡ FastAPI Gateway Router}
-    
-    MySQL_Auth[(🗄️ Azure MySQL <br> Validate Credentials)]
-    
-    Chroma[(🗃️ Chroma Vector DB <br> Semantic Context Retrieval)]
-    
+    MySQL_Auth[(Azure MySQL <br> Validate Credentials)]
+    Chroma[(Chroma Vector DB <br> Semantic Context Retrieval)]
     Llama[🦙 Local Llama-3.2 GGUF <br> CPU Inference Engine]
-    
-    MySQL_Log[(📊 Azure MySQL <br> Telemetry & Chat Logs)]
-    
+    MySQL_Log[(Azure MySQL <br> Telemetry & Chat Logs)]
     Output[📤 Encrypted JSON Response]
 
     %% =========================================================
-    %% 2. STRICT LINEAR TRAFFIC LINKAGE (Eliminates Overlap)
+    %% 2. STRICT LINEAR TRAFFIC LINKAGE (Error-Free Syntax)
     %% =========================================================
-    User         --> |1. Transmit Payload Headers| FastAPI
-    
-    FastAPI      --> |2. Query Global DB Records|  MySQL_Auth
-    
-    MySQL_Auth   --> |3. Return Session Auth OK|   FastAPI
-    
-    FastAPI      --> |4. Execute Context Search|   Chroma
-    
-    Chroma       --> |5. Inject Retrieved KB Data| FastAPI
-    
-    FastAPI      --> |6. Run Multi-Threaded Prompt| Llama
-    
-    Llama        --> |7. Latency Loop: 12-25 Seconds| FastAPI
-    
-    FastAPI      --> |8. Async Append Chat History| MySQL_Log
-    
-    MySQL_Log    --> |9. Construct Generation Object| Output
-    
-    Output       --> |10. Render App UI View|      User
+    User-->|1. Transmit Payload Headers|FastAPI
+    FastAPI-->|2. Query Global DB Records|MySQL_Auth
+    MySQL_Auth-->|3. Return Session Auth OK|FastAPI
+    FastAPI-->|4. Execute Context Search|Chroma
+    Chroma-->|5. Inject Retrieved KB Data|FastAPI
+    FastAPI-->|6. Run Multi-Threaded Prompt|Llama
+    Llama-->|7. Latency Loop: 12-25 Seconds|FastAPI
+    FastAPI-->|8. Async Append Chat History|MySQL_Log
+    MySQL_Log-->|9. Construct Generation Object|Output
+    Output-->|10. Render App UI View|User
 
     %% =========================================================
     %% 3. THEME ACCENTS FOR PROFESSIONAL LOOK
