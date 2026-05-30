@@ -74,3 +74,42 @@ graph TB
 * **Offline Decoupled Embedding Ingestion:** Designed a zero-overhead production ingestion strategy. By generating document embeddings locally on isolated RDP/workstation hardware and committing the pre-compiled database files straight to the repository, the production Azure server is completely protected from resource-heavy token embedding calculation loops.
 * **Telemetry-Driven Audit Logging:** Engineered an isolated backend tracking mechanism that binds system computation usage, query history, and system exceptions directly to a unique `Employee_ID` string parameter while using a simplified basic authentication access gateway.
 * **Traditional Azure Hardware Optimization:** Specifically configured to maximize CPU multi-threading and vector mathematical calculations on baseline virtual hardware configurations without requiring expensive GPU compute instances.
+
+---
+
+### 📂 Enterprise Repository File System Architecture
+
+```text
+├── .env.template          # Global environment variable blueprint
+├── Dockerfile             # Global environment variable blueprint
+├── requirements.txt       # Unified system Python dependencies
+├── main.py                # Primary FastAPI application entry endpoint (Routing Layer)
+├── config.py              # Configuration manager and database connections
+├── exceptions.py          # Unified system exception handlers and MySQL logging
+├── bin                    # Unified system exception handlers and MySQL logging
+├── bin2                   # Unified system exception handlers and MySQL logging
+└── central/               # Core business processing microservices
+    ├── database/vectordb  # Basic Authentication parsing & Employee_ID verification
+    ├── db.py              # Central ChromaDB retrieval, indexing, and embedding loops
+    ├── prompts.py         # Central ChromaDB retrieval, indexing, and embedding loops
+    └── schema.py          # Quantized Llama 3.2 token parsing streaming logic
+└── services/              # Core business processing microservices
+    ├── dbops.py           # Basic Authentication parsing & Employee_ID verification
+    ├── rag.py             # Central ChromaDB retrieval, indexing, and embedding loops
+    └── security.py        # Quantized Llama 3.2 token parsing streaming logic
+```
+
+---
+
+### 🚀 Local Quick-Start Directory Execution
+
+#### 1. Clone and Navigate to Infrastructure Workspace
+```bash
+git clone https://github.com
+cd local-ai-rag-assistant
+```
+
+#### 2. Establish Environment File Configuration
+```bash
+cp .env.template .env
+```
