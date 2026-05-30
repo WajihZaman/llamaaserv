@@ -86,7 +86,7 @@ graph TB
 ├── main.py                # Primary FastAPI application entry endpoint (Routing Layer)
 ├── config.py              # Configuration manager and database connections
 ├── exceptions.py          # Unified system exception handlers and MySQL logging
-├── Model                  # Local AI GGUF Model (Llama 3.2) 
+├── Model                  # Local AI GGUF Model (Llama 3.2) invoked by llama server  
 ├── bin/                   # Production Ubuntu binary (Unzipped automatically via Dockerfile)
 ├── bin2/                  # Local Windows binary (Leveraged for isolated desktop testing)
 └── central/               # Core business processing microservices
@@ -95,9 +95,9 @@ graph TB
     ├── prompts.py         # System prompt for the Local AI model
     └── schema.py          # Pydantic Model for User Queries
 └── services/              # Core business processing microservices
-    ├── dbops.py           # Basic Authentication parsing & Employee_ID verification
-    ├── rag.py             # Central ChromaDB retrieval, indexing, embedding loops, and response to user queries.
-    └── security.py        # Quantized Llama 3.2 token parsing streaming logic
+    ├── dbops.py           # Store and retrieve chat history from MySQL Database
+    ├── rag.py             # Central ChromaDB vectors retrieval, chat history, system prompt to generate response to user query.
+    └── security.py        # Basic Useer Authentication executed on every user query
 ```
 
 ---
