@@ -16,7 +16,6 @@ def execute_stored_procedure(proc_name: str, params: list, dict_cursor=False):
     Returns:
         list: Rows returned by the stored procedure.
     """
-    # print(f"Executing {proc_name} with params: {params}", flush=True)
 
     from central.db import engine
     import pymysql
@@ -26,7 +25,6 @@ def execute_stored_procedure(proc_name: str, params: list, dict_cursor=False):
 
     # SQLite does not support stored procedures
     if engine.dialect.name == "sqlite":
-        # print(f"[DEBUG] Skipping stored procedure {proc_name} in SQLite test mode.")
         return []
 
     try:
@@ -34,13 +32,11 @@ def execute_stored_procedure(proc_name: str, params: list, dict_cursor=False):
             cursor = conn.cursor(pymysql.cursors.DictCursor)
         else:
             cursor = conn.cursor()
-            # print(f" \n\n ----------------------- conn cursor ----------------------- \n: {cursor}")
 
         cursor.callproc(proc_name, params)
 
         rows = cursor.fetchall()
 
-        # print(f" \n\n ----------------------- cursor rows ----------------------- \n: {rows}")
 
         conn.commit()
 
@@ -48,16 +44,12 @@ def execute_stored_procedure(proc_name: str, params: list, dict_cursor=False):
 
     except Exception:
         conn.rollback()
-        # print(f" \n\n ----------------------- conn exception ----------------------- \n: {exc}")
-        # raise Exception(f"exception: {exc}")
 
     finally:
         if cursor:
-            # print(f" \n\n ----------------------- cursor close ----------------------- \n: {cursor}")
             cursor.close()
 
         if conn:
-            # print(f" \n\n ----------------------- conn close ----------------------- \n: {conn}")
             conn.close()
 
 
