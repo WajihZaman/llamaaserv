@@ -75,6 +75,8 @@ graph TB
 * **Telemetry-Driven Audit Logging:** Engineered an isolated backend tracking mechanism that binds system computation usage, query history, and system exceptions directly to a unique `Employee_ID` string parameter while using a simplified basic authentication access gateway.
 * **Traditional Azure Hardware Optimization:** Specifically configured to maximize CPU multi-threading and vector mathematical calculations on baseline virtual hardware configurations without requiring expensive GPU compute instances.
 * **Hardened Instruction-Level Execution Tracing:** To guarantee absolute determinism and zero-fault data lineage under strict corporate compliance mandates, the backend implements a granular line-by-line audit framework. By piping static execution state markers directly into MySQL stored procedures after sequential code blocks using async thread pools (`run_in_threadpool`), the application isolates runtime anomalies and benchmarks code performance with microsecond precision directly on the Azure host machine.
+* **Self-Healing Runtime Keep-Alive Loop:** Designed an autonomous background health checker tightly bound to FastAPI's asynchronous `lifespan` event loop. Executing silently every 5 minutes with zero API network overhead, this internal function audits the active process status of the underlying `llama-server`. If the local model server is found to have entered an idle sleep state or crashed due to resource constraints, the loop automatically executes native system restoration hooks to safely restart the model server, guaranteeing 24/7 application availability on the traditional Azure server.
+
 
 
 ---
