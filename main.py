@@ -68,7 +68,9 @@ async def get_context(
             ],
         )
 
-        data.convo_id = uid_hashed
+        # convo_id received from frontend, the below line of code is for testing only
+        # data.convo_id = uid_hashed
+        
         rowsd = await run_in_threadpool(
             execute_stored_procedure,
             "fastapi_add_logs",
