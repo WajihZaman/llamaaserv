@@ -89,9 +89,6 @@ async def sys_checker():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
-    # Base.metadata.create_all(bind=engine)
-    # used to create mysql tables on startup. but user id does not have the priviledges so it is no longer required.
-
     # debug
     from exceptions import execute_stored_procedure
     from fastapi.concurrency import run_in_threadpool
@@ -108,7 +105,8 @@ async def lifespan(app: FastAPI):
         ],
     )
 
-    global ai_server_process  # acesses the server_process above so that its value is also updated and accessible to the yield section on app shutdown
+    global ai_server_process  
+    # acesses the server_process above so that its value is also updated and accessible to the yield on app shutdown
 
     try:
         # 1. Detect the Operating System
@@ -118,8 +116,8 @@ async def lifespan(app: FastAPI):
             ["dev_tester", "CAM laptop", "config.py; in lifespan", "inside try block"],
         )
 
-        system_type = platform.system()  # Returns "Windows", "Linux", or "Darwin"
-        # 2. Pick the right file name
+        system_type = platform.system()  # Returns "Windows", or "Linux"
+        # 2. Pick the right system
         if system_type == "Windows":
             rows = await run_in_threadpool(
                 execute_stored_procedure,
@@ -133,7 +131,7 @@ async def lifespan(app: FastAPI):
             )
             exe_name = "llama-server.exe"
             ai_eng_path = os.path.abspath(f"./bin2/{exe_name}")
-            # print(f"Selected WINDOW AI Engine: {exe_name}")
+
         else:
             exe_name = "llama-server"  # Works for Ubuntu/Linux
             ai_eng_path = os.path.abspath(f"./bin/{exe_name}")
@@ -146,7 +144,7 @@ async def lifespan(app: FastAPI):
         model_path = os.path.abspath("./models/cam-assistant.gguf")
 
         if system_type != "Windows":
-            # print(f"Applying execution permissions to {exe_name}...")
+            # Applying execution permissions to linux
             os.chmod(ai_eng_path, 0o755)
             rowsd = await run_in_threadpool(
                 execute_stored_procedure,
@@ -190,8 +188,6 @@ async def lifespan(app: FastAPI):
             ],
         )
 
-        # On Linux, we don't need creationflags
-
         rowsd = await run_in_threadpool(
             execute_stored_procedure,
             "fastapi_add_logs",
@@ -221,13 +217,9 @@ async def lifespan(app: FastAPI):
             ],
         )
 
-        # Wait for the model to load into RAM
-
-        # import asyncio
 
         await asyncio.sleep(60)
-        # time.sleep(12)
-        # print("AI Engine is ready.")
+        
         if ai_server_process.poll() is not None:
             # The process has already exited (crashed)
             ai_startup_error_log = (
@@ -318,7 +310,7 @@ async def lifespan(app: FastAPI):
             # Wait up to 5 seconds for it to exit
             ai_server_process.wait(timeout=5)
         except subprocess.TimeoutExpired:
-            # print("AI Engine hung, forcing kill...")
+            # AI Engine hung, forcing kill
             rows = await run_in_threadpool(
                 execute_stored_procedure,
                 "fastapi_add_logs",
