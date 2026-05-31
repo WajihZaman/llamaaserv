@@ -68,7 +68,7 @@ async def get_context(
             ],
         )
 
-        # convo_id received from frontend, the below line of code is for testing only
+        # convo_id received from frontend, the below statement is for testing only
         # data.convo_id = uid_hashed
         
         rowsd = await run_in_threadpool(
