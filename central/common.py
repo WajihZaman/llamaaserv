@@ -8,16 +8,14 @@ load_dotenv()
 
 collection_name = "about_CAM"
 
-BASE_DIR = Path(__file__).resolve().parents[1]  # CAM/
+BASE_DIR = Path(__file__).resolve().parents[1]  # Base directory
 DB_dir = BASE_DIR / "central" / "database"  # database directory
 DB_PATH = (
     BASE_DIR / "central" / "database" / "vectordb"
 ).as_posix()  #  chroma database directory
 
-connectionstring = os.getenv("SQL_DB")
+connectionstring = os.getenv("SQL_DB") # MySQL Database connection string from env file
 url = os.getenv("url", "http://localhost:5001/v1/chat/completions")
-
-# url="http://localhost:5001/v1/chat/completions"
 
 
 chromaclient = chromadb.PersistentClient(
