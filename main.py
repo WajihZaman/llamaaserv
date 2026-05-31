@@ -122,11 +122,6 @@ async def get_context(
 
         return resp
 
-        """raise HTTPException(
-            status_code=500,
-            detail=f"There has been an error while working on your request. It has been logged. Please try again after some time.{rowsd}",
-        )"""
-
 
 if __name__ == "__main__":
     uvicorn.run(
