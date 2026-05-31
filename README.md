@@ -33,7 +33,7 @@ graph TB
     Llama[🦙 Local Llama-3.2 GGUF <br> CPU Inference Engine]
     MySQL_Log[(📊 Azure MySQL <br> Log Telemetry & Chat Histories)]
     
-    Output[📤 Encrypted JSON Response]
+    Output[📤 Atomic JSON Payload Response]
 
     %% =========================================================
     %% 2. PIPELINE INTERACTIONS
