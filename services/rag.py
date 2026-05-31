@@ -68,7 +68,7 @@ async def respond_to_chat(objMsg: UserQuery):
         ],
     )
 
-    # Add the retrieved history turns
+    # Add the retrieved history
     if history:
         messages.extend(history)
         rows = await run_in_threadpool(
@@ -98,7 +98,7 @@ async def respond_to_chat(objMsg: UserQuery):
 
     messages.append(
         {"role": "user", "content": current_input}
-    )  # remove t from current_imput
+    )  # remove t from current_input
 
     rows = await run_in_threadpool(
         execute_stored_procedure,
@@ -118,7 +118,7 @@ async def respond_to_chat(objMsg: UserQuery):
         "stream": False,
         "max_tokens": 800,
         "temperature": 0.0,
-    }  # remove [] from payload
+    }  # Payload for the AI Model
 
     rows = await run_in_threadpool(
         execute_stored_procedure,
@@ -130,8 +130,6 @@ async def respond_to_chat(objMsg: UserQuery):
             "in respond_to_chat; payload ready",
         ],
     )
-
-    
 
     full_response = ""
 
@@ -161,10 +159,9 @@ async def respond_to_chat(objMsg: UserQuery):
             ],
         )
 
-        
 
         if response.status_code != 200:
-            # This triggers your exception block for logging
+            # This triggers the exception block for logging
             rows = await run_in_threadpool(
                 execute_stored_procedure,
                 "fastapi_add_logs",
@@ -189,7 +186,6 @@ async def respond_to_chat(objMsg: UserQuery):
             ],
         )
 
-        
 
         full_response = (
             result.get("choices", [{}])[0].get("message", {}).get("content", "")
@@ -220,8 +216,6 @@ async def respond_to_chat(objMsg: UserQuery):
             await save_chat(full_response, objMsg)
 
         return {"status_code": 200, "resp": full_response}
-
-        # return full_response
 
 
 async def search_similar_chunks(query: str, collection_name: str, k: int = 3):
@@ -272,8 +266,6 @@ async def search_similar_chunks(query: str, collection_name: str, k: int = 3):
         ],
     )
 
-    
-
     documents = results.get("documents", [[]])  # Get the text list
 
     rows = await run_in_threadpool(
@@ -305,9 +297,7 @@ async def search_similar_chunks(query: str, collection_name: str, k: int = 3):
             "rag.py; in search chunks",
             "in search chunks; context text from documents ready.",
         ],
-    )
-
-    
+    )    
 
     return context_text
 
