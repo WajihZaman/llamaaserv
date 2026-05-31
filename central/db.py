@@ -42,7 +42,7 @@ class AppUsers(Base):
         Integer, primary_key=True, autoincrement=True
     )
     uid: Mapped[str] = mapped_column(String(36), ForeignKey("users.uid"))
-    emp_no: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    emp_no: Mapped[int] = mapped_column(Integer, nullable=False, index=True) # Employee ID column
     convo_id: Mapped[str] = mapped_column(String(255), index=True, nullable=False)
     request: Mapped[str] = mapped_column(Text, nullable=False)
     response: Mapped[str] = mapped_column(Text, nullable=False)
