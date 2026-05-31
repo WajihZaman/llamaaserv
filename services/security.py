@@ -52,7 +52,7 @@ def get_current_user(
     credentials: Annotated[Optional[HTTPBasicCredentials], Depends(Security)] = None,
 ):  # -> UUID | None | Any
 
-    # Check HTTP Basic Auth (Email/Password)
+    # Check HTTP Basic Auth (Username/Password)
 
     rows = execute_stored_procedure(
         "fastapi_add_logs",
