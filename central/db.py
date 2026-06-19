@@ -12,9 +12,13 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, Mapped
 from central.common import connectionstring
 from datetime import datetime, timezone
 
-engine = create_engine(connectionstring)  # type:ignore
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(
+ connectionstring,
+ pool_pre_ping=True,
+ pool_recycle=3600,
+ )  # type:ignore
 
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Latest way of using Declarative Base Class
 class Base(DeclarativeBase):
