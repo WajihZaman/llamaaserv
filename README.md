@@ -124,5 +124,5 @@ This project is part of the AI applications, agentic workflows, and LLM‑powere
 If you use or modify this project, please provide attribution by linking back to this repository or mentioning:
 
 Author: Wajih Uz Zaman  
-GitHub: https://github.com/wajih-uz-zaman (github.com in Bing)  
+GitHub: https://github.com/WajihZaman  
 LinkedIn: https://www.linkedin.com/in/ai-engineer-wajih/
